@@ -13,7 +13,6 @@ jobs:
       gradle-task: ":app:test"
 
   build-jar:
-    needs: unit-test
     uses: ./.github/workflows/gradle-build.yml
     with:
       gradle-task: "build"
