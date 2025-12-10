@@ -1,0 +1,19 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pipeline-challenge
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pipeline-challenge
+  template:
+    metadata:
+      labels:
+        app: pipeline-challenge
+    spec:
+      containers:
+        - image: ghcr.io/ioannis-matzaris/pipeline-challenge:3b3b016
+          imagePullPolicy: IfNotPresent
+          name: pipeline-challenge
