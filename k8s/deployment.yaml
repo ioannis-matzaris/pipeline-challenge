@@ -3,13 +3,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pipeline-challenge
-  labels:
-    app: pipeline-challenge
-  annotations:
-    # Argo CD Image Updater annotations
-    argocd-image-updater.argoproj.io/image-list: ghcr.io/ioannis-matzaris/pipeline-challenge
-    argocd-image-updater.argoproj.io/ghcr.io/ioannis-matzaris/pipeline-challenge.update-strategy: latest
-    argocd-image-updater.argoproj.io/ghcr.io/ioannis-matzaris/pipeline-challenge.tag: main-*
 spec:
   replicas: 1
   selector:
@@ -17,10 +10,14 @@ spec:
       app: pipeline-challenge
   template:
     metadata:
+      annotations:
+        argocd-image-updater.argoproj.io/pipeline-challenge.tag: main-*
+        argocd-image-updater.argoproj.io/pipeline-challenge.update-strategy: latest
       labels:
         app: pipeline-challenge
     spec:
       containers:
-        - image: ghcr.io/ioannis-matzaris/pipeline-challenge:3b3b016
-          imagePullPolicy: IfNotPresent
+        - image: ghcr.io/ioannis-matzaris/pipeline-challenge:main-xxxx
           name: pipeline-challenge
+          ports:
+            - containerPort: 80
