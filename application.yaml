@@ -1,22 +1,22 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: pipeline-challenge
-  namespace: argocd
   annotations:
     argocd-image-updater.argoproj.io/image-list: pipeline=ghcr.io/ioannis-matzaris/pipeline-challenge
-    argocd-image-updater.argoproj.io/pipeline.tag: main-*
     argocd-image-updater.argoproj.io/pipeline.update-strategy: latest
+  name: pipeline-challenge
+  namespace: argocd
 spec:
   destination:
     namespace: default
     server: https://kubernetes.default.svc
   project: default
   source:
+    kustomize: {}
+    path: k8s
     repoURL: https://github.com/ioannis-matzaris/pipeline-challenge.git
     targetRevision: fix-updating-image
-    path: k8s
-    kustomize: {}
   syncPolicy:
     automated:
       prune: true
