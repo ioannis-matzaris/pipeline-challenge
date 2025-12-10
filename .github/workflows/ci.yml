@@ -7,14 +7,15 @@ on:
     branches: [ '**' ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    container:
-      image: gradle:9.2.1-jdk25-alpine
-    steps:
-      - uses: actions/checkout@v3
-      - run: ./gradlew :app:test
+  unit-test:
+    uses: ./.github/workflows/gradle-build.yml
+    with:
+      gradle-task: ":app:test"
 
+  build:
+    uses: ./.github/workflows/gradle-build.yml
+    with:
+      gradle-task: "build"
   # build-and-test:
   #   runs-on: ubuntu-latest
   #   steps:

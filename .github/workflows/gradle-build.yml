@@ -1,0 +1,16 @@
+name: Gradle Build
+on:
+  workflow_call:
+    inputs:
+      gradle-task:
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: gradle:9.2.1-jdk25-alpine  # defined once here
+    steps:
+      - uses: actions/checkout@v3
+      - run: ./gradlew ${{ inputs.gradle-task }}
