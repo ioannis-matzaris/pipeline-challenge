@@ -12,20 +12,7 @@ jobs:
     with:
       gradle-task: ":app:test"
 
-  build:
+  build-jar:
     uses: ./.github/workflows/gradle-build.yml
     with:
       gradle-task: "build"
-  # build-and-test:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
-
-  #     - name: Run Java tests with Gradle in JDK 25 Container
-  #       run: |
-  #         echo "Running unit tests for ${COMMIT_ID}"
-  #         docker run --rm \
-  #           -v ${PWD}:/workspace \
-  #           -w /workspace \
-  #           gradle:9.2.1-jdk25-alpine \
-  #           ./gradlew :app:test
