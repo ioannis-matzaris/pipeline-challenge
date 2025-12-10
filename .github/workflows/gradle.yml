@@ -27,7 +27,7 @@ jobs:
             ./gradlew :app:test
 
       - name: Build Docker image
-        run: docker build -t my-app:${COMMIT_ID} .
+        run: docker build -t ${{ github.repository }}:${COMMIT_ID} .
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v2
@@ -38,8 +38,8 @@ jobs:
 
       - name: Push Docker image
         run: |
-          docker tag my-app:${COMMIT_ID} ghcr.io/${{ github.repository }}/my-app:${COMMIT_ID}
-          docker push ghcr.io/${{ github.repository }}/my-app:${COMMIT_ID}
+          docker tag ${{ github.repository }}:${COMMIT_ID} ghcr.io/${{ github.repository }}:${COMMIT_ID}
+          docker push ghcr.io/${{ github.repository }}:${COMMIT_ID}
 
       - name: Extra step for main branch
         if: github.ref == 'refs/heads/main'
