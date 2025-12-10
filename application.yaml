@@ -16,7 +16,7 @@ spec:
   source:
     path: k8s/.
     repoURL: https://github.com/ioannis-matzaris/pipeline-challenge.git
-    targetRevision: add-k8s-file
+    targetRevision: fix-updating-image
   syncPolicy:
     automated:
       prune: true
