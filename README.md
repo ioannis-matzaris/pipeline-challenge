@@ -11,6 +11,7 @@ Built using **Gradle** and requires **Java 25** or higher.
 - [Build & Run](#build--run)
   - [Using Gradle Wrapper](#using-gradle-wrapper)
   - [Build JAR and Run](#build-jar-and-run)
+  - [Build and Run with Docker](#build-and-run-with-docker)
 - [Project Structure](#project-structure)
 - [Testing](#testing)
 - [Sample Output](#sample-output)
@@ -79,6 +80,29 @@ java -jar app/build/libs/app.jar
 ```
 
 ---
+
+### Build and Run with Docker
+
+You can also build and run the application using Docker.
+
+#### Build Docker Image
+
+From the project root:
+
+docker build -t pipeline-challenge:latest .
+
+#### Run Docker Container
+docker run pipeline-challenge
+
+This will start the application inside a container and print:
+
+Hello World
+Hello World
+Hello World
+...
+
+Press Ctrl+C to stop the container.
+--- 
 
 ## Project Structure
 
