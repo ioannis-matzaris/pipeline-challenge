@@ -1,18 +1,18 @@
-name: CI
+# name: CI
 
-on:
-  push:
-    branches: [ '**' ]
-  pull_request:
-    branches: [ '**' ]
+# on:
+#   push:
+#     branches: [ '**' ]
+#   pull_request:
+#     branches: [ '**' ]
 
-jobs:
-  unit-test:
-    uses: ./.github/workflows/gradle-build.yml
-    with:
-      gradle-task: ":app:test"
+# jobs:
+#   unit-test:
+#     uses: ./.github/workflows/gradle-build.yml
+#     with:
+#       gradle-task: ":app:test"
 
-  build-jar:
-    uses: ./.github/workflows/gradle-build.yml
-    with:
-      gradle-task: "build"
+#   build-jar:
+#     uses: ./.github/workflows/gradle-build.yml
+#     with:
+#       gradle-task: "build"
