@@ -3,6 +3,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pipeline-challenge
+  labels:
+    app: pipeline-challenge
+  annotations:
+    # Argo CD Image Updater annotations
+    argocd-image-updater.argoproj.io/image-list: ghcr.io/ioannis-matzaris/pipeline-challenge
+    argocd-image-updater.argoproj.io/ghcr.io/ioannis-matzaris/pipeline-challenge.update-strategy: latest
+    argocd-image-updater.argoproj.io/ghcr.io/ioannis-matzaris/pipeline-challenge.tag: main-*
 spec:
   replicas: 1
   selector:
