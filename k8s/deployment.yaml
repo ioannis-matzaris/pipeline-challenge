@@ -12,10 +12,10 @@ spec:
       app: pipeline-challenge
   template:
     metadata:
-      annotations:
-        argocd-image-updater.argoproj.io/pipeline-challenge.tag: main-*
-        argocd-image-updater.argoproj.io/pipeline-challenge.update-strategy: latest
-        argocd-image-updater.argoproj.io/image-list: pipeline-challenge=ghcr.io/ioannis-matzaris/pipeline-challenge
+      annotations: null
+      argocd-image-updater.argoproj.io/image-list: pipeline=ghcr.io/ioannis-matzaris/pipeline-challenge
+      argocd-image-updater.argoproj.io/pipeline.tag: main-*
+      argocd-image-updater.argoproj.io/pipeline.update-strategy: latest
       labels:
         app: pipeline-challenge
     spec:
