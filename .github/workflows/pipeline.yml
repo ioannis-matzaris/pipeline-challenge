@@ -8,12 +8,12 @@ on:
 
 jobs:
   unit-test:
-    uses: ./.github/workflows/gradle-build.yml
+    uses: ./.github/workflows/gradle.yml
     with:
       gradle-task: ":app:test"
 
   build-jar:
-    uses: ./.github/workflows/gradle-build.yml
+    uses: ./.github/workflows/gradle.yml
     with:
       gradle-task: "build"
 
