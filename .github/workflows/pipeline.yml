@@ -30,7 +30,7 @@ jobs:
         uses: ./.github/actions/generate-docker-tag
 
       - name: Build Docker Image
-        run: docker build -t ghcr.io/${{ github.repository }}:${COMMIT_ID} .
+        run: docker build -t "ghcr.io/${{ github.repository }}:${COMMIT_ID}" .
 
       - name: Log in to GHCR
         uses: ./.github/actions/ghcr-login
@@ -38,4 +38,4 @@ jobs:
           password: ${{ secrets.GH_PAT }}
 
       - name: Push Docker Image
-        run: docker push ghcr.io/${{ github.repository }}:${COMMIT_ID}
+        run: docker push "ghcr.io/${{ github.repository }}:${COMMIT_ID}"
