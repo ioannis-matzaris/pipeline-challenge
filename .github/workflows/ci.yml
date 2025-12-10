@@ -1,4 +1,4 @@
-name: Pipeline Challenge - CI
+name: CI
 
 on:
   push:
