@@ -12,5 +12,5 @@ jobs:
     container:
       image: gradle:9.2.1-jdk25-alpine  # defined once here
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: ./gradlew ${{ inputs.gradle-task }}
