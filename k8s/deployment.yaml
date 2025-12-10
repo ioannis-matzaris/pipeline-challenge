@@ -12,15 +12,9 @@ spec:
       app: pipeline-challenge
   template:
     metadata:
-      annotations: null
-      argocd-image-updater.argoproj.io/image-list: pipeline=ghcr.io/ioannis-matzaris/pipeline-challenge
-      argocd-image-updater.argoproj.io/pipeline.tag: main-*
-      argocd-image-updater.argoproj.io/pipeline.update-strategy: latest
       labels:
         app: pipeline-challenge
     spec:
       containers:
         - image: ghcr.io/ioannis-matzaris/pipeline-challenge:main-ebdf577
           name: pipeline-challenge
-          ports:
-            - containerPort: 80
