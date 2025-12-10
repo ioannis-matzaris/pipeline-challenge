@@ -12,11 +12,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v4
+
       - name: Generate Docker Tag
         uses: ./github/actions/generate-docker-tag
 
-      - name: Checkout repository
-        uses: actions/checkout@v4
 
       - name: Run Java tests with Gradle in JDK 25 Container
         run: |
