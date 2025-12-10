@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: pipeline-challenge
+  name: pipeline-challenge
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pipeline-challenge
+  template:
+    metadata:
+      annotations:
+        argocd-image-updater.argoproj.io/pipeline-challenge.tag: main-*
+        argocd-image-updater.argoproj.io/pipeline-challenge.update-strategy: latest
+      labels:
+        app: pipeline-challenge
+    spec:
+      containers:
+        - image: ghcr.io/ioannis-matzaris/pipeline-challenge:main-ebdf577
+          name: pipeline-challenge
+          ports:
+            - containerPort: 80
