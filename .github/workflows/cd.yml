@@ -5,8 +5,10 @@ on:
     workflows: ["CI"]
     types:
       - completed
-    branches: 
-      - '**'   # <-- allow any branch
+  push:
+    branches: [ '**' ]
+  pull_request:
+    branches: [ '**' ]
 
 jobs:
   build-and-push-docker:
