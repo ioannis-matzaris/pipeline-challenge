@@ -12,13 +12,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Generate Docker image tag
+      - name: Generate Docker Image Tag
         run: echo "COMMIT_ID=${GITHUB_SHA::7}" >> $GITHUB_ENV
 
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Run Java tests with Gradle in JDK 25 container
+      - name: Run Java tests with Gradle in JDK 25 Container
         run: |
           docker run --rm \
             -v ${PWD}:/workspace \
@@ -26,7 +26,7 @@ jobs:
             gradle:9.2.1-jdk25-alpine \
             ./gradlew :app:test
 
-      - name: Build Docker image
+      - name: Build Docker Image
         run: docker build -t ghcr.io/${{ github.repository }}:${COMMIT_ID} .
 
       - name: Log in to GitHub Container Registry
@@ -36,12 +36,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GH_PAT }}
 
-      - name: Push Docker image
+      - name: Push Docker Image
         run: |
-
           docker push ghcr.io/${{ github.repository }}:${COMMIT_ID}
 
-      - name: Extra step for main branch
+      - name: Push Prod Docker Image
         if: github.ref == 'refs/heads/main'
         run: |
-          echo "Running main-branch only tasks"
+          docker push ghcr.io/${{ github.repository }}:main-${COMMIT_ID}
