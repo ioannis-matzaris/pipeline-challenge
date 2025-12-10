@@ -1,4 +1,6 @@
 name: CI
+env:
+  GRADLE_IMAGE: gradle:9.2.1-jdk25-alpine
 
 on:
   push:
@@ -7,16 +9,24 @@ on:
     branches: [ '**' ]
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
+    container:
+      image: ${{ env.GRADLE_IMAGE }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
+      - run: ./gradlew :app:test
 
-      - name: Run Java tests with Gradle in JDK 25 Container
-        run: |
-          echo "Running unit tests for ${COMMIT_ID}"
-          docker run --rm \
-            -v ${PWD}:/workspace \
-            -w /workspace \
-            gradle:9.2.1-jdk25-alpine \
-            ./gradlew :app:test
+  # build-and-test:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+
+  #     - name: Run Java tests with Gradle in JDK 25 Container
+  #       run: |
+  #         echo "Running unit tests for ${COMMIT_ID}"
+  #         docker run --rm \
+  #           -v ${PWD}:/workspace \
+  #           -w /workspace \
+  #           gradle:9.2.1-jdk25-alpine \
+  #           ./gradlew :app:test
