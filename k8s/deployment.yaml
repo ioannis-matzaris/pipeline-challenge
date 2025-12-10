@@ -14,7 +14,6 @@ spec:
     metadata:
       annotations:
         argocd-image-updater.argoproj.io/pipeline-challenge.tag: main-*
-        # <- Argo CD Image Updater annotations go here
         argocd-image-updater.argoproj.io/pipeline-challenge.update-strategy: latest
       labels:
         app: pipeline-challenge
