@@ -1,47 +1,48 @@
-name: Pipeline Challenge
+# name: Pipeline Challenge
 
-on:
-  push:
-    branches: [ '**' ]
-  pull_request:
-    branches: [ '**' ]
+# on:
+#   push:
+#     branches: [ '**' ]
+#   pull_request:
+#     branches: [ '**' ]
 
-jobs:
+# jobs:
 
-  build:
-    runs-on: ubuntu-latest
+#   build:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v4
+#     steps:
+#       - uses: actions/checkout@v4
 
-      - name: Generate Docker Tag
-        uses: ./.github/actions/generate-docker-tag
+#       - name: Generate Docker Tag
+#         uses: ./.github/actions/generate-docker-tag
 
 
-      - name: Run Java tests with Gradle in JDK 25 Container
-        run: |
-          docker run --rm \
-            -v ${PWD}:/workspace \
-            -w /workspace \
-            gradle:9.2.1-jdk25-alpine \
-            ./gradlew :app:test
+#       - name: Run Java tests with Gradle in JDK 25 Container
+#         run: |
+#           docker run --rm \
+#             -v ${PWD}:/workspace \
+#             -w /workspace \
+#             gradle:9.2.1-jdk25-alpine \
+#             ./gradlew :app:test
 
-## Run only when github.ref == 'refs/heads/main'
-      - name: Build Docker Image
-        run: docker build -t ghcr.io/${{ github.repository }}:${COMMIT_ID} .
+# ## workflow 2
+#       - name: Build Docker Image
+#         run: docker build -t ghcr.io/${{ github.repository }}:${COMMIT_ID} .
+# ## workflow 2
 
-      - name: Log in to GHCR
-        uses: ./.github/actions/ghcr-login
-        with:
-          password: ${{ secrets.GH_PAT }}
+#       - name: Log in to GHCR
+#         uses: ./.github/actions/ghcr-login
+#         with:
+#           password: ${{ secrets.GH_PAT }}
 
-## Run only when github.ref == 'refs/heads/main'
-      - name: Push Docker Image
-        run: |
-          docker push ghcr.io/${{ github.repository }}:${COMMIT_ID}
+# ## workflow 2
+#       - name: Push Docker Image
+#         run: |
+#           docker push ghcr.io/${{ github.repository }}:${COMMIT_ID}
 
-      - name: Push Prod Docker Image
-        if: github.ref == 'refs/heads/main'
-        run: |
-          docker tag ghcr.io/${{ github.repository }}:${COMMIT_ID} ghcr.io/${{ github.repository }}:main-${COMMIT_ID}
-          docker push ghcr.io/${{ github.repository }}:main-${COMMIT_ID}
+#       - name: Push Prod Docker Image
+#         if: github.ref == 'refs/heads/main'
+#         run: |
+#           docker tag ghcr.io/${{ github.repository }}:${COMMIT_ID} ghcr.io/${{ github.repository }}:main-${COMMIT_ID}
+#           docker push ghcr.io/${{ github.repository }}:main-${COMMIT_ID}

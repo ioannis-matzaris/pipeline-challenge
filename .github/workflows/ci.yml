@@ -1,0 +1,25 @@
+name: Pipeline Challenge - CI
+
+on:
+  push:
+    branches: [ '**' ]
+  pull_request:
+    branches: [ '**' ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate Docker Tag
+        uses: ./.github/actions/generate-docker-tag
+
+      - name: Run Java tests with Gradle in JDK 25 Container
+        run: |
+          echo "Running unit tests for ${COMMIT_ID}"
+          docker run --rm \
+            -v ${PWD}:/workspace \
+            -w /workspace \
+            gradle:9.2.1-jdk25-alpine \
+            ./gradlew :app:test
