@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Generate Docker Image Tag
-        run: echo "COMMIT_ID=${GITHUB_SHA::7}" >> $GITHUB_ENV
+      - name: Generate Docker Tag
+        uses: ./github/actions/generate-docker-tag
 
       - name: Checkout repository
         uses: actions/checkout@v4
