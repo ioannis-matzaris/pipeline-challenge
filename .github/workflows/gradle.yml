@@ -19,7 +19,7 @@ jobs:
           docker run --rm \
             -v ${PWD}:/workspace \
             -w /workspace \
-            ghcr.io/temurin/temurin:25-jdk \
+            gradle:9.2.1-jdk25-alpine \
             ./gradlew :app:test
 
       - name: Build Docker image
