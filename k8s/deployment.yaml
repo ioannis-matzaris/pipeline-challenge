@@ -17,3 +17,4 @@ spec:
       containers:
         - image: ghcr.io/ioannis-matzaris/pipeline-challenge:main-ebdf577
           name: pipeline-challenge
+          command: ["java", "-jar", "app.jar"]
