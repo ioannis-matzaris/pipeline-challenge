@@ -7,7 +7,7 @@ on:
     branches: ['**']
 
 jobs:
-  unit-test:
+  run-unit-tests:
     uses: ./.github/workflows/gradle.yml
     with:
       gradle-task: ":app:test"
@@ -16,8 +16,17 @@ jobs:
     uses: ./.github/workflows/gradle.yml
     with:
       gradle-task: "build"
+  build-docker:
+    name: Build and push
+    uses: docker/build-push-action@v6
+    with:
+      context: .
+      file: ./Dockerfile
+      tags: "ghcr.io/${{ github.repository }}:${COMMIT_ID}"
+      outputs: type=docker,dest=/tmp/myimage.tar
 
   build-and-push-docker:
+    # if: github.ref == 'refs/heads/main'
     needs: 
       - unit-test
       - build-jar
@@ -26,8 +35,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Generate Docker Tag
-        uses: ./.github/actions/generate-docker-tag
+      - uses: ./.github/actions/generate-docker-tag
 
       - name: Build Docker Image
         run: docker build -t "ghcr.io/${{ github.repository }}:${COMMIT_ID}" .
