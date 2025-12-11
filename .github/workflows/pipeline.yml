@@ -31,7 +31,6 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          tags: ${{ github.repository }}:${{ COMMIT_ID }}
           outputs: type=docker,dest=${{ runner.temp }}/${{ github.repository }}.tar
 
       - name: Upload artifact
