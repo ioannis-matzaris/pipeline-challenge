@@ -31,8 +31,8 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          tags: "ghcr.io/${{ github.repository }}:${COMMIT_ID}"
-          outputs: type=docker,dest=/tmp/myimage.tar
+          # tags: "ghcr.io/${{ github.repository }}:${COMMIT_ID}"
+          outputs: type=docker,dest="/tmp/${{ github.repository }}.tar"
 
   build-and-push-docker:
     # if: github.ref == 'refs/heads/main'
