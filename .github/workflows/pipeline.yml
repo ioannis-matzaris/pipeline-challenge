@@ -71,9 +71,11 @@ jobs:
 
       - name: Load Docker image
         run: |
+          docker import ${{ runner.temp }}/app.tar "ghcr.io/${{ github.repository }}:${COMMIT_ID}"
+
           docker load --input ${{ runner.temp }}/app.tar
           docker image ls -a
-          docker tag app "ghcr.io/${{ github.repository }}:${COMMIT_ID}"
+          # docker tag app "ghcr.io/${{ github.repository }}:${COMMIT_ID}"
 
       - name: Push Docker Image
         run: docker push "ghcr.io/${{ github.repository }}:${COMMIT_ID}"
