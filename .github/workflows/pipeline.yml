@@ -26,12 +26,12 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build and push
+      - name: Build and Export Image 
         uses: docker/build-push-action@v6
         with:
           context: .
           file: ./Dockerfile
-          tags: "${COMMIT_ID}"
+          tags: ${COMMIT_ID}
           outputs: type=docker,dest=${{ runner.temp }}/${{ github.repository }}.tar
 
       - name: Upload artifact
