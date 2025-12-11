@@ -15,7 +15,6 @@ spec:
     kustomize: {}
     path: k8s
     repoURL: https://github.com/ioannis-matzaris/pipeline-challenge.git
-    targetRevision: Fix-missing-entrypoint
   syncPolicy:
     automated:
       prune: true
