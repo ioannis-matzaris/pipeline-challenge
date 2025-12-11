@@ -10,7 +10,7 @@ jobs:
   run-unit-tests:
     uses: ./.github/workflows/gradle.yml
     with:
-      gradle-task: ":app:test"
+      gradle-task: ":app:testasdsad"
 
   build-jar:
     uses: ./.github/workflows/gradle.yml
