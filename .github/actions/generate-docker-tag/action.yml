@@ -1,0 +1,8 @@
+name: "Generate Docker Tag"
+description: "Sets COMMIT_ID environment variable to first 7 characters of GITHUB_SHA"
+runs:
+  using: "composite"
+  steps:
+    - name: Set COMMIT_ID
+      shell: bash
+      run: echo "COMMIT_ID=${GITHUB_SHA::7}" >> $GITHUB_ENV

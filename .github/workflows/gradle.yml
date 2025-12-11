@@ -1,47 +1,16 @@
-name: Pipeline Challenge
-
+name: Gradle
 on:
-  push:
-    branches: [ '**' ]
-  pull_request:
-    branches: [ '**' ]
+  workflow_call:
+    inputs:
+      gradle-task:
+        required: true
+        type: string
 
 jobs:
-
-  build:
+  gradle:
     runs-on: ubuntu-latest
-
+    container:
+      image: gradle:9.2.1-jdk25-alpine  # defined once here
     steps:
-      - name: Generate Docker Image Tag
-        run: echo "COMMIT_ID=${GITHUB_SHA::7}" >> $GITHUB_ENV
-
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Run Java tests with Gradle in JDK 25 Container
-        run: |
-          docker run --rm \
-            -v ${PWD}:/workspace \
-            -w /workspace \
-            gradle:9.2.1-jdk25-alpine \
-            ./gradlew :app:test
-
-      - name: Build Docker Image
-        run: docker build -t ghcr.io/${{ github.repository }}:${COMMIT_ID} .
-
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GH_PAT }}
-
-      - name: Push Docker Image
-        run: |
-          docker push ghcr.io/${{ github.repository }}:${COMMIT_ID}
-
-      - name: Push Prod Docker Image
-        if: github.ref == 'refs/heads/main'
-        run: |
-          docker tag ghcr.io/${{ github.repository }}:${COMMIT_ID} ghcr.io/${{ github.repository }}:main-${COMMIT_ID}
-          docker push ghcr.io/${{ github.repository }}:main-${COMMIT_ID}
+      - uses: actions/checkout@v4
+      - run: ./gradlew ${{ inputs.gradle-task }}
