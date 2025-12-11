@@ -24,24 +24,13 @@ jobs:
       runs-on: ubuntu-latest
       steps:
       - uses: actions/checkout@v4
-      - uses: docker/setup-buildx-action@v3
       - uses: ./.github/actions/generate-docker-tag
 
-      - name: Build and Export Image 
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: ./Dockerfile
-          outputs: type=docker,dest=${{ runner.temp }}/app.tar
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: app
-          path: ${{ runner.temp }}/app.tar
+      - name: Build Docker Image
+        run: docker build -t ghcr.io/${{ github.repository }}:${COMMIT_ID} .
 
   push-docker:
-    if: github.ref == 'refs/heads/main'
+    # if: github.ref == 'refs/heads/main'
     needs: 
       - build-docker
     runs-on: ubuntu-latest
@@ -50,15 +39,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/generate-docker-tag
 
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: app
-          path: ${{ runner.temp }}
-
-      - name: Import Docker image
-        run: |
-          docker import ${{ runner.temp }}/app.tar "ghcr.io/${{ github.repository }}:${COMMIT_ID}"
+      - name: Build Docker Image
+        run: docker build -t ghcr.io/${{ github.repository }}:${COMMIT_ID} .
 
       - name: Log in to GHCR
         uses: ./.github/actions/ghcr-login
