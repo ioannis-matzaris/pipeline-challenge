@@ -1,7 +1,12 @@
 # Pipeline Challenge
 
-A simple Java application that prints **"Hello World"** to the console every 2 seconds.  
-Built using **Gradle** and requires **Java 25** or higher.
+A simple Java application that prints **"Hello World"** to the console every 2 seconds. Built using **Gradle** and requires **Java 25** or higher.  
+
+The application is deployed on a Kubernetes cluster using **Argo CD** and **Argo CD Image Updater**, which automatically detects new container images and updates the deployment according to the `application.yaml` manifest.
+
+The repository also includes a **CI/CD pipeline** implemented with GitHub Actions.
+
+The pipeline automatically runs tests, builds the Java application, creates a Docker image, pushes it to GitHub Container Registry (GHCR) and triggers Argo CD to deploy the latest version, achieving full Continuous Deployment.
 
 ---
 
@@ -15,6 +20,8 @@ Built using **Gradle** and requires **Java 25** or higher.
 - [Project Structure](#project-structure)
 - [Testing](#testing)
 - [Sample Output](#sample-output)
+- [Pipeline](#pipeline)
+- [Continuous Deployment Requirements](#continuous-deployment-requirements)
 - [License](#license)
 
 ---
@@ -144,6 +151,19 @@ Hello World
 ```
 
 Press `Ctrl+C` to stop the application.
+
+---
+
+---
+
+## Pipeline
+
+For an overview of the high-level CI/CD architecture, see the detailed documentation in [PIPELINE.md](docs/PIPELINE.md).
+
+---
+
+## Continuous Deployment Requirements
+For the full list of prerequisites to enable Continuous Deployment, see [CONTINUOUS_DEPLOYMENT_REQUIREMENTS.md](docs/CONTINUOUS_DEPLOYMENT_REQUIREMENTS.md).
 
 ---
 
