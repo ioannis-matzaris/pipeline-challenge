@@ -10,7 +10,7 @@ jobs:
   gradle:
     runs-on: ubuntu-latest
     container:
-      image: gradle:9.2.1-jdk25-alpine  # defined once here
+      image: gradle:9.2.1-jdk25-alpine
     steps:
       - uses: actions/checkout@v4
       - run: ./gradlew ${{ inputs.gradle-task }}
