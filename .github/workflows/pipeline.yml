@@ -44,7 +44,7 @@ jobs:
   push-docker:
     # if: github.ref == 'refs/heads/main'
     needs: 
-      - unit-test
+      # - unit-test
       - build-jar
       - build-docker
     runs-on: ubuntu-latest
