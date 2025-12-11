@@ -6,7 +6,7 @@ The application is deployed on a Kubernetes cluster using **Argo CD** and **Argo
 
 The repository also includes a **CI/CD pipeline** implemented with GitHub Actions.
 
-The pipeline automatically runs tests, builds the Java application, creates a Docker image, pushes it to GitHub Container Registry (GHCR) and triggers Argo CD to deploy the latest version, achieving full Continuous Deployment.
+The pipeline automatically runs tests, builds the Java application, creates a Docker image, pushes it to GitHub Container Registry (GHCR) and Argo CD detects the new docker image and it deploys the latest version, achieving full Continuous Deployment.
 
 ---
 
