@@ -40,8 +40,6 @@ jobs:
           name: app
           path: ${{ runner.temp }}/app.tar
 
-
-
   push-docker:
     if: github.ref == 'refs/heads/main'
     needs: 
