@@ -41,11 +41,12 @@ jobs:
 
 
 
-  build-and-push-docker:
+  push-docker:
     # if: github.ref == 'refs/heads/main'
     needs: 
-      # - unit-test
+      - unit-test
       - build-jar
+      - build-docker
     runs-on: ubuntu-latest
 
     steps:
@@ -53,8 +54,14 @@ jobs:
 
       - uses: ./.github/actions/generate-docker-tag
 
-      - name: Build Docker Image
-        run: docker build -t "ghcr.io/${{ github.repository }}:${COMMIT_ID}" .
+      # - name: Build Docker Image
+      #   run: docker build -t "ghcr.io/${{ github.repository }}:${COMMIT_ID}" .
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${ github.repository }
+          path: ${{ runner.temp }}
 
       - name: Log in to GHCR
         uses: ./.github/actions/ghcr-login
