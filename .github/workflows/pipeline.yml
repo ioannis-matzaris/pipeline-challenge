@@ -31,8 +31,16 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          # tags: "ghcr.io/${{ github.repository }}:${COMMIT_ID}"
-          outputs: type=docker,dest=/tmp/${{ github.repository }}.tar
+          tags: "${COMMIT_ID}"
+          outputs: type=docker,dest=${{ runner.temp }}/${{ github.repository }}.tar
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${COMMIT_ID}
+          path: ${{ runner.temp }}/${{ github.repository }}.tar
+
+
 
   build-and-push-docker:
     # if: github.ref == 'refs/heads/main'
