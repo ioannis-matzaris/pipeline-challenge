@@ -31,13 +31,13 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          outputs: type=docker,dest=${{ runner.temp }}/${{ github.repository }}.tar
+          outputs: type=docker,dest=${{ runner.temp }}/app.tar
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${COMMIT_ID}
-          path: ${{ runner.temp }}/${{ github.repository }}.tar
+          name: app
+          path: ${{ runner.temp }}/app.tar
 
 
 
@@ -60,7 +60,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: ${ github.repository }
+          name: app
           path: ${{ runner.temp }}
 
       - name: Log in to GHCR
